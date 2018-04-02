@@ -1,0 +1,46 @@
+package Arrow;
+
+import java.awt.Graphics;
+import java.util.LinkedList;
+
+//import com.sun.org.apache.bcel.internal.generic.NEW;
+
+public class Controller {
+
+	private LinkedList<Bulletarrow> b = new LinkedList<Bulletarrow>();
+	
+	Bulletarrow TempBullet;
+	
+	Game game;
+	public Controller(Game game){
+		this.game = game;
+		
+		//addBullet(new Bulletarrow(100, 300, game));
+	}
+	
+	public void tick(){
+		for(int i = 0; i < b.size(); i++){
+			TempBullet = b.get(i);
+			
+			if(TempBullet.getY() < 0) // fafter getting up from frame it will distroy
+				removeBullet(TempBullet);
+			
+			TempBullet.tick();
+		}
+	}
+	
+	public void render(Graphics g){
+		for(int i = 0; i < b.size(); i++){
+			TempBullet = b.get(i);
+			
+			TempBullet.render(g);
+		}
+	}
+	
+	public void addBullet(Bulletarrow block){
+		b.add(block);
+	}
+	public void removeBullet(Bulletarrow block){
+		b.remove(block);
+	}
+}

@@ -1,0 +1,43 @@
+package Arrow;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+public class Bulletarrow {
+
+	private double x;
+	private double y;
+	
+	BufferedImage image;
+	BufferedImage sprites;
+	
+	public Bulletarrow(double x, double y, Game game){
+		this.x = x;
+		this.y = y;
+		
+		//SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
+		//or this
+		BufferImageLoader loader = new BufferImageLoader();
+		try{
+			sprites = loader.loadImage("/arrow.png");
+		}catch (IOException  e) {
+			e.printStackTrace();
+		}
+		SpriteSheet ss = new SpriteSheet(sprites);
+		
+		image = ss.grabImage(1, 4, 32, 32);
+	}
+	
+	public void tick(){
+		y -= 5;
+	}
+	public void render(Graphics g){
+		g.drawImage(image, (int) x, (int) y, null);
+	}
+
+	public double getY() {
+		return y;
+	}
+	
+}
